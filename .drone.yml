@@ -3,7 +3,7 @@ kind: pipeline
 type: docker
 name: Ubuntu focal (amd64)
 environment:
-    DEBIAN_FRONTEND=noninteractive
+    DEBIAN_FRONTEND: noninteractive
 
 steps:
 - name: build
