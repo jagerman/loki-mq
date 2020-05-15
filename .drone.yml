@@ -1,0 +1,33 @@
+---
+kind: pipeline
+type: docker
+name: Ubuntu focal (amd64)
+
+steps:
+- name: build
+  image: ubuntu:focal
+  commands:
+  - apt-get update && apt-get upgrade -y && apt-get install -y cmake g++ gcc git ninja python3-dev libsodium-dev libcurl-dev
+  - git submodule update --init --recursive
+  - mkdir build && cd build
+  - cmake .. -G Ninja
+  - ninja -v
+  - ./test/tests
+#
+#---
+#kind: pipeline
+#type: docker
+#name: compile-aarch64
+#
+#clone:
+#  disable: true
+#
+#steps:
+#- name: compile-aarch64
+#  image: ubuntu:latest
+#  commands:
+#  - apt update && apt upgrade -y && apt install -y cmake make git g++-aarch64-linux-gnu gcc-aarch64-linux-gnu
+#  - git clone $DRONE_REMOTE_URL .
+#  - git checkout $DRONE_COMMIT
+#  - git submodule update --init --recursive
+#  - mkdir build-aarch64 && cd build-aarch64 && cmake .. -DNATIVE_BUILD=OFF -DCROSS_TARGET=aarch64-linux-gnu -DDOWNLOAD_CURL=ON -DDOWNLOAD_SODIUM=ON -DCMAKE_TOOLCHAIN_FILE=../contrib/cross/aarch64.toolchain.cmake && make
