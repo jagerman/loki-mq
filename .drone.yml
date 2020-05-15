@@ -15,7 +15,7 @@ steps:
   - mkdir build && cd build
   - cmake .. -G Ninja
   - ninja -v
-  - ./test/tests
+  - ./tests/tests
 #
 #---
 #kind: pipeline
