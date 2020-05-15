@@ -7,7 +7,8 @@ steps:
 - name: build
   image: ubuntu:focal
   commands:
-  - apt-get update && apt-get upgrade -y && apt-get install -y cmake g++ gcc git ninja-build python3-dev libsodium-dev libcurl-dev
+  - apt-get update && apt-get dist-upgrade -y
+  - apt-get install -y cmake g++ gcc git ninja-build python3-dev libsodium-dev libcurl4-openssl-dev
   - git submodule update --init --recursive
   - mkdir build && cd build
   - cmake .. -G Ninja
