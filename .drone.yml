@@ -139,11 +139,11 @@ type: docker
 name: Debian buster (armhf)
 
 platform:
-    arch: arm
+    arch: arm64
 
 steps:
 - name: build
-  image: armhf/debian:buster
+  image: arm32v7/debian:buster
   commands:
   - apt-get update && apt-get install -y eatmydata
   - eatmydata apt-get dist-upgrade -y
