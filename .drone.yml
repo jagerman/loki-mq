@@ -20,13 +20,113 @@ steps:
 ---
 kind: pipeline
 type: docker
+name: Ubuntu bionic (amd64)
+environment:
+    DEBIAN_FRONTEND: noninteractive
+
+steps:
+- name: build
+  image: ubuntu:bionic
+  commands:
+  - apt-get update && apt-get dist-upgrade -y
+  - apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev
+  - git submodule update --init --recursive
+  - mkdir build && cd build
+  - cmake .. -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color=always
+  - ninja -v
+  - ./tests/tests --use-colour yes
+
+---
+kind: pipeline
+type: docker
+name: Debian sid (amd64)
+environment:
+    DEBIAN_FRONTEND: noninteractive
+
+steps:
+- name: build
+  image: debian:sid
+  commands:
+  - apt-get update && apt-get dist-upgrade -y
+  - apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev
+  - git submodule update --init --recursive
+  - mkdir build && cd build
+  - cmake .. -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color=always
+  - ninja -v
+  - ./tests/tests --use-colour yes
+
+---
+kind: pipeline
+type: docker
+name: Debian buster (amd64)
+environment:
+    DEBIAN_FRONTEND: noninteractive
+
+steps:
+- name: build
+  image: debian:buster
+  commands:
+  - apt-get update && apt-get dist-upgrade -y
+  - apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev
+  - git submodule update --init --recursive
+  - mkdir build && cd build
+  - cmake .. -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color=always
+  - ninja -v
+  - ./tests/tests --use-colour yes
+
+---
+kind: pipeline
+type: docker
+name: Ubuntu bionic (ARM64)
+environment:
+    DEBIAN_FRONTEND: noninteractive
+
+platform:
+    arch: arm64
+
+steps:
+- name: build
+  image: ubuntu:bionic
+  commands:
+  - apt-get update && apt-get dist-upgrade -y
+  - apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev
+  - git submodule update --init --recursive
+  - mkdir build && cd build
+  - cmake .. -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color=always
+  - ninja -v
+  - ./tests/tests --use-colour yes
+
+---
+kind: pipeline
+type: docker
 name: Debian sid (ARM 64)
 environment:
     DEBIAN_FRONTEND: noninteractive
 
 platform:
-    os: linux
     arch: arm64
+
+steps:
+- name: build
+  image: debian:sid
+  commands:
+  - apt-get update && apt-get dist-upgrade -y
+  - apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev
+  - git submodule update --init --recursive
+  - mkdir build && cd build
+  - cmake .. -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color=always
+  - ninja -v
+  - ./tests/tests --use-colour yes
+
+---
+kind: pipeline
+type: docker
+name: Debian buster (armhf)
+environment:
+    DEBIAN_FRONTEND: noninteractive
+
+platform:
+    arch: arm
 
 steps:
 - name: build
