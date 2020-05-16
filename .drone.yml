@@ -2,13 +2,14 @@
 kind: pipeline
 type: docker
 name: Ubuntu focal (amd64)
-environment:
-    DEBIAN_FRONTEND: noninteractive
 
 steps:
 - name: build
   image: ubuntu:focal
   commands:
+  - cat /etc/apt/apt.conf.d/proxy || echo "proxy not found"
+  - ls -l /etc/drone || echo "no /etc/drone"
+  - ls -l /cache || echo "no /cache"
   - apt-get update && apt-get install -y eatmydata
   - eatmydata apt-get dist-upgrade -y
   - eatmydata apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev
@@ -22,8 +23,6 @@ steps:
 kind: pipeline
 type: docker
 name: Ubuntu bionic (amd64)
-environment:
-    DEBIAN_FRONTEND: noninteractive
 
 steps:
 - name: build
@@ -42,8 +41,6 @@ steps:
 kind: pipeline
 type: docker
 name: Debian sid (amd64)
-environment:
-    DEBIAN_FRONTEND: noninteractive
 
 steps:
 - name: build
@@ -62,8 +59,6 @@ steps:
 kind: pipeline
 type: docker
 name: Debian buster (amd64)
-environment:
-    DEBIAN_FRONTEND: noninteractive
 
 steps:
 - name: build
@@ -82,8 +77,6 @@ steps:
 kind: pipeline
 type: docker
 name: Ubuntu bionic (ARM64)
-environment:
-    DEBIAN_FRONTEND: noninteractive
 
 platform:
     arch: arm64
@@ -92,6 +85,9 @@ steps:
 - name: build
   image: ubuntu:bionic
   commands:
+  - cat /etc/apt/apt.conf.d/proxy || echo "proxy not found"
+  - ls -l /etc/drone || echo "no /etc/drone"
+  - ls -l /cache || echo "no /cache"
   - apt-get update && apt-get install -y eatmydata
   - eatmydata apt-get dist-upgrade -y
   - eatmydata apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev
@@ -105,8 +101,6 @@ steps:
 kind: pipeline
 type: docker
 name: Debian sid (ARM 64)
-environment:
-    DEBIAN_FRONTEND: noninteractive
 
 platform:
     arch: arm64
@@ -128,8 +122,6 @@ steps:
 kind: pipeline
 type: docker
 name: Debian buster (armhf)
-environment:
-    DEBIAN_FRONTEND: noninteractive
 
 platform:
     arch: arm
