@@ -9,8 +9,9 @@ steps:
 - name: build
   image: ubuntu:focal
   commands:
-  - apt-get update && apt-get dist-upgrade -y
-  - apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev
+  - apt-get update && apt-get install -y eatmydata
+  - eatmydata apt-get dist-upgrade -y
+  - eatmydata apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev
   - git submodule update --init --recursive
   - mkdir build && cd build
   - cmake .. -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color=always
@@ -28,8 +29,9 @@ steps:
 - name: build
   image: ubuntu:bionic
   commands:
-  - apt-get update && apt-get dist-upgrade -y
-  - apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev
+  - apt-get update && apt-get install -y eatmydata
+  - eatmydata apt-get dist-upgrade -y
+  - eatmydata apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev
   - git submodule update --init --recursive
   - mkdir build && cd build
   - cmake .. -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color=always
@@ -47,8 +49,9 @@ steps:
 - name: build
   image: debian:sid
   commands:
-  - apt-get update && apt-get dist-upgrade -y
-  - apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev
+  - apt-get update && apt-get install -y eatmydata
+  - eatmydata apt-get dist-upgrade -y
+  - eatmydata apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev
   - git submodule update --init --recursive
   - mkdir build && cd build
   - cmake .. -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color=always
@@ -66,8 +69,9 @@ steps:
 - name: build
   image: debian:buster
   commands:
-  - apt-get update && apt-get dist-upgrade -y
-  - apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev
+  - apt-get update && apt-get install -y eatmydata
+  - eatmydata apt-get dist-upgrade -y
+  - eatmydata apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev
   - git submodule update --init --recursive
   - mkdir build && cd build
   - cmake .. -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color=always
@@ -88,8 +92,9 @@ steps:
 - name: build
   image: ubuntu:bionic
   commands:
-  - apt-get update && apt-get dist-upgrade -y
-  - apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev
+  - apt-get update && apt-get install -y eatmydata
+  - eatmydata apt-get dist-upgrade -y
+  - eatmydata apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev
   - git submodule update --init --recursive
   - mkdir build && cd build
   - cmake .. -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color=always
@@ -110,8 +115,9 @@ steps:
 - name: build
   image: debian:sid
   commands:
-  - apt-get update && apt-get dist-upgrade -y
-  - apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev
+  - apt-get update && apt-get install -y eatmydata
+  - eatmydata apt-get dist-upgrade -y
+  - eatmydata apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev
   - git submodule update --init --recursive
   - mkdir build && cd build
   - cmake .. -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color=always
@@ -132,8 +138,9 @@ steps:
 - name: build
   image: debian:sid
   commands:
-  - apt-get update && apt-get dist-upgrade -y
-  - apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev
+  - apt-get update && apt-get install -y eatmydata
+  - eatmydata apt-get dist-upgrade -y
+  - eatmydata apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev
   - git submodule update --init --recursive
   - mkdir build && cd build
   - cmake .. -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color=always
