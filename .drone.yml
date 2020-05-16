@@ -12,10 +12,10 @@ steps:
   - ls -l /cache || echo "no /cache"
   - apt-get update && apt-get install -y eatmydata
   - eatmydata apt-get dist-upgrade -y
-  - eatmydata apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev
+  - eatmydata apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev ccache
   - git submodule update --init --recursive
   - mkdir build && cd build
-  - cmake .. -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color=always
+  - cmake .. -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color=always -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
   - ninja -v
   - ./tests/tests --use-colour yes
 
@@ -30,10 +30,10 @@ steps:
   commands:
   - apt-get update && apt-get install -y eatmydata
   - eatmydata apt-get dist-upgrade -y
-  - eatmydata apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev
+  - eatmydata apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev ccache
   - git submodule update --init --recursive
   - mkdir build && cd build
-  - cmake .. -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color=always
+  - cmake .. -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color=always -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
   - ninja -v
   - ./tests/tests --use-colour yes
 
@@ -48,10 +48,10 @@ steps:
   commands:
   - apt-get update && apt-get install -y eatmydata
   - eatmydata apt-get dist-upgrade -y
-  - eatmydata apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev
+  - eatmydata apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev ccache
   - git submodule update --init --recursive
   - mkdir build && cd build
-  - cmake .. -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color=always
+  - cmake .. -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color=always -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
   - ninja -v
   - ./tests/tests --use-colour yes
 
@@ -66,10 +66,10 @@ steps:
   commands:
   - apt-get update && apt-get install -y eatmydata
   - eatmydata apt-get dist-upgrade -y
-  - eatmydata apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev
+  - eatmydata apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev ccache
   - git submodule update --init --recursive
   - mkdir build && cd build
-  - cmake .. -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color=always
+  - cmake .. -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color=always -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
   - ninja -v
   - ./tests/tests --use-colour yes
 
@@ -90,10 +90,10 @@ steps:
   - ls -l /cache || echo "no /cache"
   - apt-get update && apt-get install -y eatmydata
   - eatmydata apt-get dist-upgrade -y
-  - eatmydata apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev
+  - eatmydata apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev ccache
   - git submodule update --init --recursive
   - mkdir build && cd build
-  - cmake .. -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color=always
+  - cmake .. -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color=always -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
   - ninja -v
   - ./tests/tests --use-colour yes
 
@@ -111,10 +111,10 @@ steps:
   commands:
   - apt-get update && apt-get install -y eatmydata
   - eatmydata apt-get dist-upgrade -y
-  - eatmydata apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev
+  - eatmydata apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev ccache
   - git submodule update --init --recursive
   - mkdir build && cd build
-  - cmake .. -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color=always
+  - cmake .. -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color=always -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
   - ninja -v
   - ./tests/tests --use-colour yes
 
@@ -132,9 +132,9 @@ steps:
   commands:
   - apt-get update && apt-get install -y eatmydata
   - eatmydata apt-get dist-upgrade -y
-  - eatmydata apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev
+  - eatmydata apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev ccache
   - git submodule update --init --recursive
   - mkdir build && cd build
-  - cmake .. -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color=always
+  - cmake .. -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color=always -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
   - ninja -v
   - ./tests/tests --use-colour yes
