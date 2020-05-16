@@ -10,6 +10,7 @@ steps:
   - cat /etc/apt/apt.conf.d/proxy || echo "proxy not found"
   - ls -l /etc/drone || echo "no /etc/drone"
   - ls -l /cache || echo "no /cache"
+  - env
   - apt-get update && apt-get install -y eatmydata
   - eatmydata apt-get dist-upgrade -y
   - eatmydata apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev ccache
@@ -118,23 +119,23 @@ steps:
   - ninja -v
   - ./tests/tests --use-colour yes
 
----
-kind: pipeline
-type: docker
-name: Debian buster (armhf)
-
-platform:
-    arch: arm
-
-steps:
-- name: build
-  image: debian:sid
-  commands:
-  - apt-get update && apt-get install -y eatmydata
-  - eatmydata apt-get dist-upgrade -y
-  - eatmydata apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev ccache
-  - git submodule update --init --recursive
-  - mkdir build && cd build
-  - cmake .. -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color=always -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
-  - ninja -v
-  - ./tests/tests --use-colour yes
+#---
+#kind: pipeline
+#type: docker
+#name: Debian buster (armhf)
+#
+#platform:
+#    arch: arm
+#
+#steps:
+#- name: build
+#  image: debian:sid
+#  commands:
+#  - apt-get update && apt-get install -y eatmydata
+#  - eatmydata apt-get dist-upgrade -y
+#  - eatmydata apt-get install -y cmake g++ git ninja-build libsodium-dev pkg-config libzmq3-dev ccache
+#  - git submodule update --init --recursive
+#  - mkdir build && cd build
+#  - cmake .. -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color=always -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
+#  - ninja -v
+#  - ./tests/tests --use-colour yes
