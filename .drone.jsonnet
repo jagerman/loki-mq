@@ -10,9 +10,7 @@ local debian_pipeline(name, image, arch='amd64', deps='g++ libsodium-dev libzmq3
             [if allow_fail then "failure"]: "ignore",
             commands: [
                 'env',
-                'echo "CCDIR: ${CCACHE_DIR}"',
-                'ls -l ${CCACHE_DIR}',
-                'df ${CCACHE_DIR}',
+                'ls -l /cache/ccache',
                 'apt-get update',
                 'apt-get install -y eatmydata',
                 'eatmydata apt-get dist-upgrade -y',
