@@ -31,7 +31,7 @@ local debian_pipeline(name, image, arch='amd64', deps='g++ libsodium-dev libzmq3
     debian_pipeline("Ubuntu bionic (amd64)", "ubuntu:bionic", deps='libsodium-dev g++-8',
                     cmake_extra='-DCMAKE_C_COMPILER=gcc-8 -DCMAKE_CXX_COMPILER=g++-8'),
     debian_pipeline("Debian sid (amd64)", "debian:sid"),
-    debian_pipeline("Debian sid/clang-10 (amd64)", "debian:sid", deps='clang-10 libsodium-dev libzmq3-dev',
+    debian_pipeline("Debian sid/clang-10 (amd64)", "debian:sid", deps='clang-10 lld-10 libsodium-dev libzmq3-dev',
                     cmake_extra='-DCMAKE_C_COMPILER=clang-10 -DCMAKE_CXX_COMPILER=clang++-10 ' + std.join(' ', [
                         '-DCMAKE_'+type+'_LINKER_FLAGS=-fuse-ld=lld-10' for type in ['EXE','MODULE','SHARED','STATIC']])),
     debian_pipeline("Debian buster (amd64)", "debian:buster"),
