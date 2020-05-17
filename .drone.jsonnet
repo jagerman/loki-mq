@@ -10,6 +10,9 @@ local debian_pipeline(name, image, arch='amd64', deps='g++ libsodium-dev libzmq3
             [if allow_fail then "failure"]: "ignore",
             commands: [
                 'env',
+                'echo "CCDIR: ${CCACHE_DIR}"',
+                'ls -l ${CCACHE_DIR}',
+                'df ${CCACHE_DIR}',
                 'apt-get update',
                 'apt-get install -y eatmydata',
                 'eatmydata apt-get dist-upgrade -y',
@@ -27,7 +30,6 @@ local debian_pipeline(name, image, arch='amd64', deps='g++ libsodium-dev libzmq3
 
 [
     debian_pipeline("Ubuntu focal (amd64)", "ubuntu:focal"),
-    debian_pipeline("fail test", "debian:sid", allow_fail=true, deps="omg-does-not-exist"),
     debian_pipeline("Ubuntu bionic (amd64)", "ubuntu:bionic", deps='libsodium-dev g++-8',
                     cmake_extra='-DCMAKE_C_COMPILER=gcc-8 -DCMAKE_CXX_COMPILER=g++-8'),
     debian_pipeline("Debian sid (amd64)", "debian:sid"),
