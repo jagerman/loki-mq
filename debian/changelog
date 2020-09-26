@@ -1,4 +1,4 @@
-lokimq (1.2.0~pre2-1~ubuntu1804) bionic; urgency=medium
+lokimq (1.2.0~pre2-1~ubuntu1604) xenial; urgency=medium
 
   [ Thomas Winget ]
   * add method to get current buffer from bt list/dict consumer
