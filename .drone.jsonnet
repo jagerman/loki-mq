@@ -26,6 +26,7 @@ local debian_pipeline(name, image, arch='amd64', deps='g++ libsodium-dev libzmq3
 };
 
 [
+/*
     debian_pipeline("Ubuntu focal (amd64)", "ubuntu:focal"),
     debian_pipeline("Ubuntu bionic (amd64)", "ubuntu:bionic", deps='libsodium-dev g++-8',
                     cmake_extra='-DCMAKE_C_COMPILER=gcc-8 -DCMAKE_CXX_COMPILER=g++-8'),
@@ -40,6 +41,7 @@ local debian_pipeline(name, image, arch='amd64', deps='g++ libsodium-dev libzmq3
                     cmake_extra='-DCMAKE_C_COMPILER=gcc-8 -DCMAKE_CXX_COMPILER=g++-8'),
     debian_pipeline("Debian sid (ARM64)", "debian:sid", arch="arm64"),
     debian_pipeline("Debian buster (armhf)", "arm32v7/debian:buster", arch="arm64"),
+*/
     {
         kind: 'pipeline',
         type: 'exec',
