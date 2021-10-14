@@ -64,7 +64,7 @@ build software using oxenmq.
 %build
 
 %undefine __cmake_in_source_build
-%cmake -DOXENMQ_INSTALL_CPPZMQ=ON -DOXENMQ_LOKIMQ_COMPAT=OFF
+%cmake -DOXENMQ_LOKIMQ_COMPAT=OFF
 %cmake_build
 
 %install
