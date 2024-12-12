@@ -1,4 +1,4 @@
-local docker_base = 'registry.oxen.rocks/lokinet-ci-';
+local docker_base = 'registry.oxen.rocks/';
 
 local default_deps_nocxx = ['libsodium-dev', 'libzmq3-dev', 'liboxenc-dev'];
 
@@ -82,17 +82,17 @@ local full_llvm(version) = debian_pipeline(
   debian_pipeline('Debian sid (amd64)', docker_base + 'debian-sid', distro='sid'),
   debian_pipeline('Debian sid/Debug (amd64)', docker_base + 'debian-sid', build_type='Debug', distro='sid'),
   clang(16),
-  full_llvm(16),
-  debian_pipeline('Debian buster (amd64)', docker_base + 'debian-buster'),
+  full_llvm(17),
+  debian_pipeline('Debian bullseye (amd64)', docker_base + 'debian-bullseye'),
   debian_pipeline('Debian stable (i386)', docker_base + 'debian-stable/i386'),
   debian_pipeline('Debian sid (ARM64)', docker_base + 'debian-sid', arch='arm64', distro='sid'),
   debian_pipeline('Debian stable (armhf)', docker_base + 'debian-stable/arm32v7', arch='arm64'),
-  debian_pipeline('Debian buster (armhf)', docker_base + 'debian-buster/arm32v7', arch='arm64'),
-  debian_pipeline('Ubuntu focal (amd64)', docker_base + 'ubuntu-focal'),
-  debian_pipeline('Ubuntu bionic (amd64)',
-                  docker_base + 'ubuntu-bionic',
-                  deps=default_deps_nocxx,
-                  cmake_extra='-DCMAKE_C_COMPILER=gcc-8 -DCMAKE_CXX_COMPILER=g++-8'),
+  debian_pipeline('Debian bullseye (armhf)', docker_base + 'debian-bullseye/arm32v7', arch='arm64'),
+  debian_pipeline('Ubuntu noble (amd64)', docker_base + 'ubuntu-noble'),
+  debian_pipeline('Ubuntu focal (amd64)',
+                  docker_base + 'ubuntu-focal',
+                  deps=default_deps_nocxx + ['g++-10'],
+                  cmake_extra='-DCMAKE_C_COMPILER=gcc-10 -DCMAKE_CXX_COMPILER=g++-10'),
   {
     kind: 'pipeline',
     type: 'exec',
