@@ -19,6 +19,7 @@ local debian_pipeline(name,
                       cmake_extra='',
                       build_type='Release',
                       extra_cmds=[],
+                      werror=false,
                       distro='$$(lsb_release -sc)',
                       allow_fail=false) = {
   kind: 'pipeline',
@@ -46,7 +47,10 @@ local debian_pipeline(name,
         'eatmydata ' + apt_get_quiet + 'install -y cmake git ninja-build pkg-config ccache ' + std.join(' ', deps),
         'mkdir build',
         'cd build',
-        'cmake .. -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color=always -DCMAKE_BUILD_TYPE=' + build_type + ' -DCMAKE_CXX_COMPILER_LAUNCHER=ccache ' + cmake_extra,
+        'cmake .. -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color=always' +
+        ' -DCMAKE_BUILD_TYPE=' + build_type +
+        ' -DWARNINGS_AS_ERRORS=' + (if werror then 'ON' else 'OFF') +
+        ' -DCMAKE_CXX_COMPILER_LAUNCHER=ccache ' + cmake_extra,
         'ninja -v',
         './tests/tests --use-colour yes',
       ] + extra_cmds,
