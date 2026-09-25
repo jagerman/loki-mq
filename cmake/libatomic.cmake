@@ -1,3 +1,6 @@
+include(CheckCXXSourceCompiles)
+include(CheckLibraryExists)
+
 function(check_working_cxx_atomics64 varname)
   set(OLD_CMAKE_REQUIRED_FLAGS ${CMAKE_REQUIRED_FLAGS})
   if(MSVC OR MSVC_VERSION)
