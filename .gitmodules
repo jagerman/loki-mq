@@ -10,3 +10,6 @@
 [submodule "oxen-logging"]
 	path = oxen-logging
 	url = https://github.com/oxen-io/oxen-logging.git
+[submodule "cmake/session-deps"]
+	path = cmake/session-deps
+	url = https://github.com/session-foundation/session-deps.git
