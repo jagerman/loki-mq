@@ -93,27 +93,15 @@ if(TARGET oxen::logging)
     target_link_libraries(_oxenmq_external_logging INTERFACE oxen::logging)
     target_link_libraries(oxenmq PRIVATE _oxenmq_external_logging)
     message(STATUS "using pre-existing oxen::logging target")
-elseif(BUILD_SHARED_LIBS)
-    include(FindPkgConfig)
-    pkg_check_modules(OXENLOGGING liboxen-logging>=1.2.0)
-    if(OXENLOGGING_FOUND)
-        # If we load oxen-logging via system lib then we won't necessarily have fmt/spdlog targets,
-        # but this script will give us them:
-        include(oxen-logging/cmake/load_fmt_spdlog.cmake)
-
-        add_library(omq_logging_fmt_spdlog INTERFACE)
-        target_link_libraries(omq_logging_fmt_spdlog INTERFACE oxen-logging ${OXEN_LOGGING_FMT_TARGET} ${OXEN_LOGGING_SPDLOG_TARGET})
-        add_library(oxen::logging ALIAS omq_logging_fmt_spdlog)
-        target_link_libraries(oxenmq PUBLIC oxen::logging)
-    endif()
-endif()
-if(NOT TARGET oxen::logging)
+else()
     if(APPLE)
         # LTO is usually broken on macOS, just like most things under the surface.
         set(USE_LTO OFF CACHE INTERNAL "")
     endif()
-    set(OXEN_LOGGING_FORCE_SUBMODULES ON CACHE INTERNAL "")
-    add_subdirectory(oxen-logging)
+    # oxen-logging resolves oxen::logging itself: a system liboxen-logging together with suitable
+    # fmt and spdlog targets, or else the submodule.  OXEN_LOGGING_FORCE_SUBMODULES (implied by
+    # BUILD_STATIC_DEPS) skips the system library and takes the bundled fmt and spdlog too.
+    include(${CMAKE_CURRENT_SOURCE_DIR}/oxen-logging/cmake/load.cmake)
     target_link_libraries(oxenmq PUBLIC oxen::logging)
 endif()
 
