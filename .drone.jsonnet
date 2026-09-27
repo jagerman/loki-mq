@@ -59,8 +59,8 @@ local debian_pipeline(name,
                   apt_get_quiet + 'update',
                   apt_get_quiet + 'install -y eatmydata',
                   'eatmydata ' + apt_get_quiet + ' install --no-install-recommends -y lsb-release',
-                  'cp contrib/deb.oxen.io.gpg /etc/apt/trusted.gpg.d',
-                  'echo deb http://deb.oxen.io ' + distro + ' main >/etc/apt/sources.list.d/oxen.list',
+                  'cp contrib/deb.session.foundation.gpg /etc/apt/trusted.gpg.d',
+                  'echo deb http://deb.session.foundation ' + distro + ' main >/etc/apt/sources.list.d/session.list',
                   'eatmydata ' + apt_get_quiet + ' update',
                   'eatmydata ' + apt_get_quiet + 'dist-upgrade -y',
                   'eatmydata ' + apt_get_quiet + 'install -y cmake git ninja-build pkg-config ccache ' + std.join(' ', deps),
@@ -85,9 +85,13 @@ local full_llvm(version) = debian_pipeline(
   distro='sid',
   deps=['clang-' + version, 'clang-tools-' + version, 'lld-' + version, 'libc++-' + version + '-dev', 'libc++abi-' + version + '-dev']
        + default_deps_nocxx,
+  // sid's fmt (10.1.1) cannot be compiled by clang 21 or later (fmtlib/fmt#4807, fixed in fmt
+  // 11.1), and the system spdlog and oxen-logging headers use it, so this pipeline builds
+  // oxen-logging from the submodule with its bundled fmt and spdlog instead.
   cmake_extra='-DCMAKE_C_COMPILER=clang-' + version +
               ' -DCMAKE_CXX_COMPILER=clang++-' + version +
               ' -DCMAKE_CXX_FLAGS=-stdlib=libc++ ' +
+              ' -DOXEN_LOGGING_FORCE_SUBMODULES=ON ' +
               std.join(' ', [
                 '-DCMAKE_' + type + '_LINKER_FLAGS=-fuse-ld=lld-' + version
                 for type in ['EXE', 'MODULE', 'SHARED', 'STATIC']
@@ -125,17 +129,14 @@ local mac_builder(name,
 [
   debian_pipeline('Debian sid (amd64)', docker_base + 'debian-sid', distro='sid'),
   debian_pipeline('Debian sid/Debug (amd64)', docker_base + 'debian-sid', build_type='Debug', distro='sid'),
-  clang(17),
-  full_llvm(19),
+  clang(19),
+  full_llvm(23),
   debian_pipeline('Debian sid (ARM64)', docker_base + 'debian-sid', arch='arm64', distro='sid'),
   debian_pipeline('Debian stable (i386)', docker_base + 'debian-stable/i386'),
   debian_pipeline('Debian stable (armhf)', docker_base + 'debian-stable/arm32v7', arch='arm64'),
-  debian_pipeline('Debian bullseye (amd64)', docker_base + 'debian-bullseye'),
-  debian_pipeline('Debian bullseye (armhf)', docker_base + 'debian-bullseye/arm32v7', arch='arm64'),
-  debian_pipeline('Ubuntu focal (amd64)',
-                  docker_base + 'ubuntu-focal',
-                  deps=default_deps_nocxx + ['g++-10'],
-                  cmake_extra='-DCMAKE_C_COMPILER=gcc-10 -DCMAKE_CXX_COMPILER=g++-10'),
+  debian_pipeline('Debian bookworm (amd64)', docker_base + 'debian-bookworm'),
+  debian_pipeline('Debian bookworm (armhf)', docker_base + 'debian-bookworm/arm32v7', arch='arm64'),
+  debian_pipeline('Ubuntu jammy (amd64)', docker_base + 'ubuntu-jammy'),
   debian_pipeline('Ubuntu noble (amd64)', docker_base + 'ubuntu-noble'),
   mac_builder('MacOS (amd64) Release', build_type='Release', arch='amd64'),
   mac_builder('MacOS (amd64) Debug', build_type='Debug', arch='amd64'),
